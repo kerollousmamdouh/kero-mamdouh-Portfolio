@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kerollous Mamdouh | Front-End Developer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0ea5e9',
+                        secondary: '#7e22ce',
+                        dark: '#0f172a',
+                        darker: '#020617',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #0ea5e9, #7e22ce);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(14, 165, 233, 0.2);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, #f43f5e, #d946ef);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .active::after {
+            width: 100%;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            left: -7.5px;
+            top: 0;
+            background: linear-gradient(135deg, #0ea5e9, #7e22ce);
+        }
+
+        .skill-bar {
+            height: 8px;
+            border-radius: 4px;
+            background-color: #1e293b;
+        }
+
+        .skill-progress {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #0ea5e9, #7e22ce);
+            transition: width 1s ease-in-out;
+        }
+
+        .project-card {
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            box-shadow: 5px 5px 15px rgba(2, 6, 23, 0.5),
+                -5px -5px 15px rgba(30, 41, 59, 0.5);
+        }
+
+        .contact-input {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            transition: all 0.3s ease;
+        }
+
+        .contact-input:focus {
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #0ea5e9, #7e22ce);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(14, 165, 233, 0.3);
+        }
+
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-3px);
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .td {
+            color: #7e22ce;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes pan {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(200%);
+            }
+        }
+
+        /* حاوية النص */
+        .typing-container {
+            display: inline-block;
+            position: relative;
+        }
+
+        .typing-text {
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 3px solid #f43f5e;
+            /* المؤشر اللي بيترعش */
+            width: 0;
+            animation:
+                typing 3.5s steps(20, end) infinite,
+                blink-caret 0.75s step-end infinite;
+        }
+
+        /* حركة الكتابة */
+        @keyframes typing {
+            0% {
+                width: 0
+            }
+
+            50% {
+                width: 100%
+            }
+
+            /* يخلص كتابة عند نص الوقت */
+            90% {
+                width: 100%
+            }
+
+            /* يثبت شوية عشان الناس تقرأ */
+            100% {
+                width: 0
+            }
+
+            /* يرجع يمسح ويبدأ من جديد */
+        }
+
+        /* حركة المؤشر (الشرطة) */
+        @keyframes blink-caret {
+
+            from,
+            to {
+                border-color: transparent
+            }
+
+            50% {
+                border-color: #f43f5e
+            }
+        }
+
+        /* حركة نبض العلامات < > */
+        .bracket-animate {
+            animation: pulse-brackets 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-brackets {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.2);
+                opacity: 0.7;
+                color: #d946ef;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-dark text-slate-200">
+    <nav class="fixed w-full bg-[#0a0f1a]/80 backdrop-blur-md z-[100] border-b border-white/5 shadow-2xl">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="#home" class="text-2xl font-black tracking-tighter group">
+                    <span class="text-white group-hover:text-rose-500 transition-colors">KERO</span>
+                    <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-fuchsia-600">MAMDOUH</span>
+                </a>
+
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home"
+                        class="nav-link text-sm font-bold text-slate-300 hover:text-rose-500 transition-colors">Home</a>
+                    <a href="#about"
+                        class="nav-link text-sm font-bold text-slate-300 hover:text-rose-500 transition-colors">About</a>
+                    <a href="#skills"
+                        class="nav-link text-sm font-bold text-slate-300 hover:text-rose-500 transition-colors">Skills</a>
+                    <a href="#projects"
+                        class="nav-link text-sm font-bold text-slate-300 hover:text-rose-500 transition-colors">Projects</a>
+                    <a href="#Services"
+                        class="nav-link text-sm font-bold text-slate-300 hover:text-rose-500 transition-colors">Services</a>
+                    <a href="#contact"
+                        class="px-5 py-2 rounded-full bg-rose-500/10 border border-rose-500/50 text-rose-500 text-sm font-bold hover:bg-rose-500 hover:text-white transition-all duration-300">Let's
+                        Talk</a>
+                </div>
+
+                <div class="md:hidden">
+                    <button id="menu-toggle" class="p-2 text-slate-200 hover:bg-slate-800 rounded-lg transition-colors">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="mobile-menu"
+                class="hidden md:hidden absolute left-0 w-full bg-[#0a0f1a] border-b border-slate-800 p-6 space-y-4">
+                <a href="#home" class="block text-slate-300 font-bold hover:text-rose-500">Home</a>
+                <a href="#about" class="block text-slate-300 font-bold hover:text-rose-500">About</a>
+                <a href="#skills" class="block text-slate-300 font-bold hover:text-rose-500">Skills</a>
+                <a href="#projects" class="block text-slate-300 font-bold hover:text-rose-500">Projects</a>
+                <a href="#Services" class="block text-slate-300 font-bold hover:text-rose-500">Services</a>
+
+                <a href="#contact" class="block text-rose-500 font-bold">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="relative min-h-screen flex items-center pt-20 overflow-hidden bg-[#0a0f1a]">
+        <div class="absolute top-1/4 -left-20 w-96 h-96 bg-rose-500/10 rounded-full blur-[120px] pointer-events-none">
+        </div>
+        <div
+            class="absolute bottom-1/4 -right-20 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none">
+        </div>
+
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
+
+            <div class="order-2 md:order-1 text-center md:text-left">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700 mb-6">
+                    <span class="relative flex h-3 w-3">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-rose-500"></span>
+                    </span>
+                    <span class="text-xs font-bold text-slate-300 uppercase tracking-widest">Available for
+                        Projects</span>
+                </div>
+
+                <h4 class="text-5xl md:text-7xl font-black mb-6 leading-tight">
+                    Hi, I'm <br>
+                    <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-fuchsia-500 to-rose-400 bg-[length:200%_auto] animate-[gradient_3s_linear_infinite]">
+                        Kerollous Mamdouh Shawky
+                    </span>
+                </h4>
+
+                <h2
+                    class="text-2xl md:text-3xl font-bold mb-6 text-white flex items-center justify-center md:justify-start gap-3">
+                    <span class="text-rose-500 bracket-animate">&lt;</span>
+
+                    <span class="typing-container">
+                        <span class="typing-text">Front-End Developer</span>
+                    </span>
+
+                    <span class="text-rose-500 bracket-animate">/&gt;</span>
+                </h2>
+
+                <p class="text-lg text-slate-400 mb-10 max-w-lg leading-relaxed mx-auto md:mx-0">
+                    Frontend Developer passionate about building modern, responsive and user-friendly web applications
+                    using React and modern frontend tools.
+                </p>
+
+                <div class="flex flex-wrap justify-center md:justify-start gap-4 mb-12">
+                    <a href="#contact"
+                        class="px-8 py-4 rounded-2xl bg-gradient-to-r from-rose-500 to-fuchsia-600 text-white font-bold text-lg hover:shadow-[0_20px_40px_-10px_rgba(244,63,94,0.4)] transform hover:-translate-y-1 transition-all duration-300">
+                        Hire Me Now <i class="fas fa-paper-plane ml-2 text-sm"></i>
+                    </a>
+                    <a href="#projects"
+                        class="px-8 py-4 rounded-2xl border border-slate-700 text-white font-bold text-lg hover:bg-slate-800 hover:border-rose-500 transition-all duration-300">
+                        View My Work
+                    </a>
+                </div>
+
+                <div class="flex justify-center md:justify-start gap-4">
+                    <a href="https://github.com/kerollousmamdouh" target="_blank"
+                        class="w-12 h-12 flex items-center justify-center rounded-xl bg-slate-800/50 border border-slate-700 text-slate-400 hover:text-white hover:bg-black hover:border-black transition-all duration-300">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+
+                    <a href="https://www.linkedin.com/in/kerollous-mamdouh-4b5381335" target="_blank"
+                        class="w-12 h-12 flex items-center justify-center rounded-xl bg-slate-800/50 border border-slate-700 text-slate-400 hover:text-white hover:bg-[#0077b5] hover:border-[#0077b5] transition-all duration-300">
+                        <i class="fab fa-linkedin-in text-xl"></i>
+                    </a>
+                    <a href="mailto:keromamdouh131@gmail.com" target="_blank"
+                        class="w-12 h-12 flex items-center justify-center rounded-xl bg-slate-800/50 border border-slate-700 text-slate-400 hover:text-white hover:bg-rose-500 hover:border-rose-500 transition-all duration-300">
+                        <i class="fas fa-envelope text-xl"></i>
+                    </a>
+                    <a href="https://www.facebook.com/share/1BMGjZqAas/" target="_blank"
+                        class="w-12 h-12 flex items-center justify-center rounded-xl bg-slate-800/50 border border-slate-700 text-slate-400 hover:text-white hover:bg-[#1877f2] hover:border-[#1877f2] transition-all duration-300">
+                        <i class="fab fa-facebook-f text-xl"></i>
+                    </a>
+                    <a href="https://wa.me/201278765856" target="_blank"
+                        class="w-12 h-12 flex items-center justify-center rounded-xl bg-slate-800/50 border border-slate-700 text-slate-400 hover:text-white hover:bg-emerald-500 hover:border-emerald-500 transition-all duration-300">
+                        <i class="fab fa-whatsapp text-2xl"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="order-1 md:order-2 flex justify-center relative">
+                <div class="relative w-72 h-72 md:w-[30rem] md:h-[30rem] group">
+
+                    <div
+                        class="absolute inset-0 rounded-full bg-gradient-to-tr from-rose-500 via-fuchsia-500 to-cyan-500 animate-[spin_10s_linear_infinite] opacity-30 blur-2xl">
+                    </div>
+
+                    <div
+                        class="absolute -inset-4 rounded-full border-2 border-dashed border-slate-700 animate-[spin_20s_linear_infinite]">
+                    </div>
+
+                    <div
+                        class="relative w-full h-full rounded-full overflow-hidden border-4 border-slate-800 shadow-2xl z-10">
+                        <img src="./image/my photo.jpeg" alt="Kerollous Mamdouh"
+                            class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-700">
+                    </div>
+
+                    <div
+                        class="absolute -top-2 right-10 z-20 bg-slate-800/80 backdrop-blur-sm p-3 md:p-4 rounded-2xl shadow-xl border border-slate-700 animate-bounce">
+                        <i class="fab fa-html5 text-3xl md:text-4xl text-orange-500"></i>
+                    </div>
+
+                    <div
+                        class="absolute top-20 -left-4 md:-left-10 z-20 bg-slate-800/80 backdrop-blur-sm p-3 md:p-4 rounded-2xl shadow-xl border border-slate-700 animate-bounce [animation-delay:0.2s]">
+                        <i class="fab fa-react text-3xl md:text-4xl text-cyan-400"></i>
+                    </div>
+
+                    <div
+                        class="absolute -bottom-2 left-10 z-20 bg-slate-800/80 backdrop-blur-sm p-3 md:p-4 rounded-2xl shadow-xl border border-slate-700 animate-bounce [animation-delay:0.4s]">
+                        <i class="fab fa-js text-3xl md:text-4xl text-yellow-400"></i>
+                    </div>
+
+                    <div
+                        class="absolute bottom-20 -right-4 md:-right-10 z-20 bg-slate-800/80 backdrop-blur-sm p-3 md:p-4 rounded-2xl shadow-xl border border-slate-700 animate-bounce [animation-delay:0.6s]">
+                        <i class="fab fa-css3-alt text-3xl md:text-4xl text-blue-500"></i>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-[#0a0f1a] relative overflow-hidden">
+        <div class="container mx-auto px-6">
+
+            <div class="flex flex-col items-center justify-center mb-16 group cursor-default">
+                <div class="flex items-center gap-3">
+                    <div class="relative flex items-center justify-center">
+                        <div
+                            class="absolute inset-0 bg-cyan-500/20 blur-xl rounded-full group-hover:bg-cyan-500/40 transition-all duration-500">
+                        </div>
+                        <div
+                            class="relative z-10 p-2 rounded-lg bg-slate-800 border border-slate-700 group-hover:border-cyan-500/50 transition-all duration-300">
+                            <i
+                                class="fas fa-user-tie text-3xl text-cyan-400 group-hover:scale-110 transition-transform duration-500"></i>
+                        </div>
+                    </div>
+                    <h2 class="text-3xl md:text-5xl font-black tracking-tighter">
+                        <span class="text-white group-hover:text-gray-300 transition-colors duration-300">About</span>
+                        <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 bg-[length:200%_auto] animate-[gradient_3s_linear_infinite] group-hover:from-blue-500 group-hover:to-cyan-400 transition-all duration-500">Me</span>
+                    </h2>
+                </div>
+                <div
+                    class="relative w-32 h-1.5 mt-4 bg-slate-800 rounded-full overflow-hidden border border-slate-700 shadow-inner">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 w-1/2 rounded-full animate-[pan_2s_ease-in-out_infinite]">
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row items-center gap-12 lg:gap-20">
+                <div class="md:w-1/3 flex justify-center">
+                    <div class="relative group">
+                        <div
+                            class="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200">
+                        </div>
+                        <div class="relative w-72 h-72">
+                            <img src="./image/my photo.jpeg" alt="About"
+                                class="w-full h-full object-cover rounded-2xl border-2 border-slate-700/50 shadow-2xl">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:w-2/3">
+                    <h3 class="text-2xl font-bold mb-6 text-white flex items-center gap-2">
+                        <span class="w-8 h-[2px] bg-cyan-500"></span> Who am I?
+                    </h3>
+                    <p class="text-slate-400 mb-8 text-lg leading-relaxed">
+                        I'm a Frontend Developer specializing in React and modern web technologies with strong
+                        experience in building clean, responsive, and user-friendly web applications. Passionate about
+                        problem-solving, UI/UX design principles, and applying best practices to create maintainable and
+                        scalable code. Proven ability to collaborate effectively in team environments, continuously
+                        learn new technologies, and deliver high-quality projects that make a real impact.
+                    </p>
+
+                    <div
+                        class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8 mb-10 bg-slate-800/30 p-6 rounded-2xl border border-slate-700/50">
+                        <div class="flex flex-col gap-3">
+                            <h4 class="font-semibold text-slate-400">Name: <span class="text-white ml-2">kerollous
+                                    Mamdouh</span></h4>
+                            <h4 class="font-semibold text-slate-400">Email: <span
+                                    class="text-white ml-2 text-sm md:text-base">keromamdouh131@gmail.com</span></h4>
+                            <h4 class="font-semibold text-slate-400">Phone: <span class="text-white ml-2">+20 12 787 658
+                                    56</span></h4>
+                        </div>
+                        <div class="flex flex-col gap-3">
+                            <h4 class="font-semibold text-slate-400">Age: <span class="text-white ml-2">20</span></h4>
+                            <h4 class="font-semibold text-slate-400">Experience: <span class="text-white ml-2">1+
+                                    Years</span></h4>
+                            <h4 class="font-semibold text-slate-400">Location: <span class="text-white ml-2">Assiut,
+                                    Egypt</span></h4>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-4">
+                        <a href="./kero's CV (1).pdf" download="kero mamdouh_CV.pdf"
+                            class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold hover:shadow-[0_10px_20px_-10px_rgba(6,182,212,0.5)] transform hover:-translate-y-1 transition-all duration-300">
+                            Download CV <i class="fas fa-download ml-2"></i>
+                        </a>
+                        <a href="#contact"
+                            class="px-8 py-3.5 rounded-xl border border-slate-700 text-white font-bold hover:bg-slate-800 hover:border-cyan-500 transition-all duration-300">
+                            Contact Me
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-32">
+                <div class="flex flex-col items-center justify-center mb-16 group cursor-default">
+                    <div class="flex items-center gap-3">
+                        <div class="relative flex items-center justify-center">
+                            <div
+                                class="absolute inset-0 bg-indigo-500/20 blur-xl rounded-full group-hover:bg-indigo-500/40 transition-all duration-500">
+                            </div>
+                            <div
+                                class="relative z-10 p-2 rounded-lg bg-slate-800 border border-slate-700 group-hover:border-indigo-500/50 transition-all duration-300">
+                                <i
+                                    class="fas fa-graduation-cap text-3xl text-indigo-400 group-hover:scale-110 group-hover:-rotate-12 transition-all duration-500"></i>
+                            </div>
+                        </div>
+                        <h2 class="text-3xl md:text-5xl font-black tracking-tighter">
+                            <span class="text-white group-hover:text-gray-300 transition-colors duration-300">My</span>
+                            <span
+                                class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-500 to-indigo-400 bg-[length:200%_auto] animate-[gradient_3s_linear_infinite] group-hover:from-purple-500 group-hover:to-indigo-400 transition-all duration-500">Education</span>
+                        </h2>
+                    </div>
+                    <div
+                        class="relative w-32 h-1.5 mt-4 bg-slate-800 rounded-full overflow-hidden border border-slate-700 shadow-inner">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-600 w-1/2 rounded-full animate-[pan_2s_ease-in-out_infinite]">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="max-w-4xl mx-auto">
+                    <div class="max-w-4xl mx-auto">
+                        <div
+                            class="group relative p-8 bg-slate-800/40 backdrop-blur-sm border border-slate-700 rounded-3xl hover:border-indigo-500/50 transition-all duration-500 overflow-hidden">
+                            <div
+                                class="absolute -top-10 -right-10 w-32 h-32 bg-indigo-500/5 rounded-full blur-3xl group-hover:bg-indigo-500/10 transition-all">
+                            </div>
+
+                            <div class="flex flex-col md:flex-row gap-8 items-start md:items-center">
+                                <div class="relative shrink-0">
+                                    <div
+                                        class="w-20 h-20 rounded-2xl bg-gradient-to-br from-indigo-600 to-purple-700 flex items-center justify-center shadow-lg transform group-hover:rotate-6 transition-transform duration-500">
+                                        <i class="fas fa-laptop-code text-3xl text-white"></i>
+                                    </div>
+                                    <div
+                                        class="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-slate-900 border-2 border-slate-700 flex items-center justify-center">
+                                        <i class="fas fa-university text-[10px] text-indigo-400"></i>
+                                    </div>
+                                </div>
+
+                                <div class="flex-grow">
+                                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4">
+                                        <div>
+                                            <h4
+                                                class="text-2xl md:text-3xl font-black text-white group-hover:text-indigo-400 transition-colors">
+                                                Assiut University</h4>
+                                            <p class="text-indigo-400 font-bold text-lg flex items-center gap-2">
+                                                Faculty of Computers and Information
+                                            </p>
+                                        </div>
+                                        <div class="text-left md:text-right">
+                                            <p class="text-slate-500 font-bold tracking-widest text-sm uppercase">2024 –
+                                                2028</p>
+                                        </div>
+                                    </div>
+
+                                    <hr class="border-slate-700/50 mb-6">
+
+                                    <div class="flex items-center gap-4">
+                                        <div class="flex flex-col">
+                                            <span
+                                                class="text-slate-500 text-xs font-bold uppercase tracking-tighter mb-1">Academic
+                                                Standing</span>
+                                            <div
+                                                class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-500/10 border border-indigo-500/30 rounded-xl">
+                                                <i class="fas fa-star text-amber-400 text-sm"></i>
+                                                <span class="text-white font-black text-lg">GPA: 3.81</span>
+                                                <span class="text-indigo-400/60 text-sm font-medium">/ 4.0</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="hidden sm:flex flex-col">
+                                            <span
+                                                class="text-slate-500 text-xs font-bold uppercase tracking-tighter mb-1">Status</span>
+                                            <span
+                                                class="text-emerald-400 font-bold text-sm bg-emerald-400/10 px-3 py-2 rounded-xl border border-emerald-400/20">Active
+                                                Student</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-32">
+                <div class="flex flex-col items-center justify-center mb-16 group cursor-default">
+                    <div class="flex items-center gap-3">
+                        <div class="relative flex items-center justify-center">
+                            <div
+                                class="absolute inset-0 bg-amber-500/20 blur-xl rounded-full group-hover:bg-amber-500/40 transition-all duration-500">
+                            </div>
+                            <div
+                                class="relative z-10 p-2 rounded-lg bg-slate-800 border border-slate-700 group-hover:border-amber-500/50 transition-all duration-300">
+                                <i
+                                    class="fas fa-briefcase text-3xl text-amber-400 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500"></i>
+                            </div>
+                        </div>
+                        <h2 class="text-3xl md:text-5xl font-black tracking-tighter">
+                            <span class="text-white group-hover:text-gray-300 transition-colors duration-300">My</span>
+                            <span
+                                class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-500 to-amber-400 bg-[length:200%_auto] animate-[gradient_3s_linear_infinite] group-hover:from-orange-500 group-hover:to-amber-400 transition-all duration-500">Experience</span>
+                        </h2>
+                    </div>
+                    <div
+                        class="relative w-32 h-1.5 mt-4 bg-slate-800 rounded-full overflow-hidden border border-slate-700 shadow-inner">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-r from-amber-500 to-orange-600 w-1/2 rounded-full animate-[pan_2s_ease-in-out_infinite]">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="max-w-4xl mx-auto">
+                    <div
+                        class="group relative p-8 bg-slate-800/40 backdrop-blur-sm border border-slate-700 rounded-3xl hover:border-amber-500/50 transition-all duration-500">
+                        <div class="mb-6">
+                            <h4 class="text-2xl font-bold text-white mb-1">React Front-End Web Developer Intern</h4>
+                            <h6 class="text-xl font-bold text-purple-500 italic">the Digital Egypt Pioneers Initiative
+                                (DEPI)</h6>
+                            <p class="text-slate-500 text-sm mt-2 font-bold uppercase tracking-widest">November 2025 –
+                                July 2026</p>
+                        </div>
+
+                        <div class="space-y-4 text-slate-300 leading-relaxed">
+                            <p><strong class="text-amber-400">Technical:</strong> Developed responsive and interactive
+                                web applications using HTML5, CSS3, Bootstrap, JavaScript, TypeScript, SASS, and
+                                React.js. Implemented modern UI/UX designs, ensured cross-browser compatibility,
+                                performed debugging, and maintained high code quality and best practices.</p>
+                            <p><strong class="text-amber-400">Non-Technical:</strong> Collaborated effectively with team
+                                members, participated in Agile ceremonies, improved problem-solving and research skills,
+                                and focused on improving communication and teamwork in a professional environment.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <section id="skills" class="py-24 bg-[#0f172a] text-white">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col items-center justify-center mb-20 group cursor-default">
+                <div class="flex items-center gap-3">
+                    <div class="relative flex items-center justify-center">
+                        <div
+                            class="absolute inset-0 bg-primary/20 blur-xl rounded-full group-hover:bg-primary/40 transition-all duration-500">
+                        </div>
+                        <i
+                            class="fas fa-bolt text-3xl text-primary animate-[bounce_2s_ease-in-out_infinite] group-hover:text-secondary transition-colors duration-500 relative z-10"></i>
+                    </div>
+
+                    <h2 class="text-3xl md:text-5xl font-black tracking-tighter">
+                        <span class="text-white group-hover:text-gray-300 transition-colors duration-300">My</span>
+                        <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%_auto] animate-[gradient_3s_linear_infinite] group-hover:from-secondary group-hover:to-primary transition-all duration-500">
+                            Skills
+                        </span>
+                    </h2>
+                </div>
+
+                <div class="relative w-32 h-1.5 mt-4 bg-slate-800 rounded-full overflow-hidden border border-slate-700">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-r from-primary to-secondary w-1/2 rounded-full animate-[pan_2s_ease-in-out_infinite]">
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 items-start">
+
+                <div
+                    class="group bg-slate-800 rounded-2xl shadow-xl transform transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary/20 p-8 border border-slate-700 hover:border-primary/40">
+                    <div class="flex items-center justify-center gap-3 mb-8 cursor-default">
+                        <div
+                            class="p-2 rounded-lg bg-primary/10 text-primary group-hover:animate-bounce transition-colors duration-500 group-hover:bg-primary group-hover:text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <h3
+                            class="text-2xl font-black bg-gradient-to-r from-white via-gray-300 to-gray-500 bg-clip-text text-transparent group-hover:from-primary group-hover:to-secondary transition-all duration-500 tracking-tight">
+                            Front-End Development
+                        </h3>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="group/item">
+                            <div class="flex justify-between mb-2">
+                                <span
+                                    class="font-bold text-gray-300 group-hover/item:text-white transition-colors">HTML5/CSS3</span>
+                                <span class="text-sm font-bold text-primary">80%</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-slate-700 rounded-full overflow-hidden border border-slate-600">
+                                <div class="h-full bg-gradient-to-r from-primary to-secondary" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="group/item">
+                            <div class="flex justify-between mb-2">
+                                <span
+                                    class="font-bold text-gray-300 group-hover/item:text-white transition-colors">JavaScript</span>
+                                <span class="text-sm font-bold text-primary">75%</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-slate-700 rounded-full overflow-hidden border border-slate-600">
+                                <div class="h-full bg-gradient-to-r from-primary to-secondary" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div class="group/item">
+                            <div class="flex justify-between mb-2">
+                                <span
+                                    class="font-bold text-gray-300 group-hover/item:text-white transition-colors">Bootstrap</span>
+                                <span class="text-sm font-bold text-primary">75%</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-slate-700 rounded-full overflow-hidden border border-slate-600">
+                                <div class="h-full bg-gradient-to-r from-primary to-secondary" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div class="group/item">
+                            <div class="flex justify-between mb-2">
+                                <span
+                                    class="font-bold text-gray-300 group-hover/item:text-white transition-colors">Sass</span>
+                                <span class="text-sm font-bold text-primary">70%</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-slate-700 rounded-full overflow-hidden border border-slate-600">
+                                <div class="h-full bg-gradient-to-r from-primary to-secondary" style="width: 70%"></div>
+                            </div>
+                        </div>
+                        <div class="group/item">
+                            <div class="flex justify-between mb-2">
+                                <span
+                                    class="font-bold text-gray-300 group-hover/item:text-white transition-colors">React.js</span>
+                                <span class="text-sm font-bold text-primary">70%</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-slate-700 rounded-full overflow-hidden border border-slate-600">
+                                <div class="h-full bg-gradient-to-r from-primary to-secondary" style="width: 70%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="group bg-slate-800 rounded-2xl shadow-xl transform transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-secondary/20 p-8 border border-slate-700 hover:border-secondary/40">
+                    <div class="flex items-center justify-center gap-3 mb-8 cursor-default">
+                        <div
+                            class="p-2 rounded-lg bg-secondary/10 text-secondary group-hover:animate-bounce transition-colors duration-500 group-hover:bg-secondary group-hover:text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                            </svg>
+                        </div>
+                        <h3
+                            class="text-2xl font-black bg-gradient-to-r from-white via-gray-300 to-gray-500 bg-clip-text text-transparent group-hover:from-secondary group-hover:to-primary transition-all duration-500 tracking-tight">
+                            Programming Langauges
+                        </h3>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="group/item">
+                            <div class="flex justify-between mb-2">
+                                <span class="font-bold text-gray-300 group-hover/item:text-white transition-colors">
+                                    C++</span>
+                                <span class="text-sm font-bold text-secondary">95%</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-slate-700 rounded-full overflow-hidden border border-slate-600">
+                                <div class="h-full bg-gradient-to-r from-secondary to-primary" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="group/item">
+                            <div class="flex justify-between mb-2">
+                                <span
+                                    class="font-bold text-gray-300 group-hover/item:text-white transition-colors">C#</span>
+                                <span class="text-sm font-bold text-secondary">70%</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-slate-700 rounded-full overflow-hidden border border-slate-600">
+                                <div class="h-full bg-gradient-to-r from-secondary to-primary" style="width: 70%"></div>
+                            </div>
+                        </div>
+                        <div class="group/item">
+                            <div class="flex justify-between mb-2">
+                                <span
+                                    class="font-bold text-gray-300 group-hover/item:text-white transition-colors">Python</span>
+                                <span class="text-sm font-bold text-secondary">70%</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-slate-700 rounded-full overflow-hidden border border-slate-600">
+                                <div class="h-full bg-gradient-to-r from-secondary to-primary" style="width: 70%"></div>
+                            </div>
+                        </div>
+                        <div class="group/item">
+                            <div class="flex justify-between mb-2">
+                                <span
+                                    class="font-bold text-gray-300 group-hover/item:text-white transition-colors">Java</span>
+                                <span class="text-sm font-bold text-secondary">80%</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-slate-700 rounded-full overflow-hidden border border-slate-600">
+                                <div class="h-full bg-gradient-to-r from-secondary to-primary" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="group/item">
+                            <div class="flex justify-between mb-2">
+                                <span
+                                    class="font-bold text-gray-300 group-hover/item:text-white transition-colors">TypeScript</span>
+                                <span class="text-sm font-bold text-secondary">70%</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-slate-700 rounded-full overflow-hidden border border-slate-600">
+                                <div class="h-full bg-gradient-to-r from-secondary to-primary" style="width: 70%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="group bg-slate-800 rounded-2xl shadow-xl transform transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary/20 p-8 border border-slate-700 hover:border-primary/40">
+                    <div class="flex items-center justify-center gap-3 mb-8 cursor-default">
+                        <div
+                            class="p-2 rounded-lg bg-primary/10 text-primary group-hover:animate-bounce transition-colors duration-500 group-hover:bg-primary group-hover:text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                        </div>
+                        <h3
+                            class="text-2xl font-black bg-gradient-to-r from-white via-gray-300 to-gray-500 bg-clip-text text-transparent group-hover:from-primary group-hover:to-secondary transition-all duration-500 tracking-tight">
+                            Soft Skills
+                        </h3>
+                    </div>
+
+                    <div class="flex flex-col gap-4">
+                        <div
+                            class="group/item relative overflow-hidden bg-slate-700/40 h-14 flex items-center justify-center rounded-xl text-gray-300 hover:text-white transition-all duration-300 px-6 whitespace-nowrap border border-slate-600 hover:border-primary hover:-translate-y-1 cursor-pointer">
+                            <span class="relative z-10 font-bold tracking-wide">Communication</span>
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">
+                            </div>
+                        </div>
+                        <div
+                            class="group/item relative overflow-hidden bg-slate-700/40 h-14 flex items-center justify-center rounded-xl text-gray-300 hover:text-white transition-all duration-300 px-6 whitespace-nowrap border border-slate-600 hover:border-primary hover:-translate-y-1 cursor-pointer">
+                            <span class="relative z-10 font-bold tracking-wide">Teamwork</span>
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">
+                            </div>
+                        </div>
+                        <div
+                            class="group/item relative overflow-hidden bg-slate-700/40 h-14 flex items-center justify-center rounded-xl text-gray-300 hover:text-white transition-all duration-300 px-6 whitespace-nowrap border border-slate-600 hover:border-primary hover:-translate-y-1 cursor-pointer">
+                            <span class="relative z-10 font-bold tracking-wide">Problem Solving & Critical
+                                Thinking</span>
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">
+                            </div>
+                        </div>
+                        <div
+                            class="group/item relative overflow-hidden bg-slate-700/40 h-14 flex items-center justify-center rounded-xl text-gray-300 hover:text-white transition-all duration-300 px-6 whitespace-nowrap border border-slate-600 hover:border-primary hover:-translate-y-1 cursor-pointer">
+                            <span class="relative z-10 font-bold tracking-wide">Time Management</span>
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">
+                            </div>
+                        </div>
+                        <div
+                            class="group/item relative overflow-hidden bg-slate-700/40 h-14 flex items-center justify-center rounded-xl text-gray-300 hover:text-white transition-all duration-300 px-6 whitespace-nowrap border border-slate-600 hover:border-primary hover:-translate-y-1 cursor-pointer">
+                            <span class="relative z-10 font-bold tracking-wide">Adaptability</span>
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    </div>
+    </div>
+    </section>
+
+    <div class="mt-24">
+        <div class="flex flex-col items-center justify-center mb-16 group cursor-default">
+            <div class="flex items-center gap-3">
+                <div class="relative flex items-center justify-center">
+                    <div
+                        class="absolute inset-0 bg-secondary/20 blur-xl rounded-full group-hover:bg-secondary/40 transition-all duration-500">
+                    </div>
+                    <i
+                        class="fas fa-tools text-3xl text-secondary animate-[spin_4s_linear_infinite] group-hover:text-primary transition-colors duration-500 relative z-10"></i>
+                </div>
+
+                <h3 class="text-3xl md:text-5xl font-black tracking-tighter">
+                    <span class="text-white group-hover:text-gray-300 transition-colors duration-300">Tools &</span>
+                    <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-secondary via-primary to-secondary bg-[length:200%_auto] animate-[gradient_3s_linear_infinite] group-hover:from-primary group-hover:to-secondary transition-all duration-500">
+                        Technologies
+                    </span>
+                </h3>
+            </div>
+
+            <div class="relative w-32 h-1.5 mt-4 bg-slate-800 rounded-full overflow-hidden">
+                <div
+                    class="absolute inset-0 bg-gradient-to-r from-secondary to-primary w-1/2 rounded-full animate-[pan_2s_ease-in-out_infinite]">
+                </div>
+            </div>
+        </div>
+
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+
+            <div
+                class="group relative flex flex-col items-center p-6 bg-slate-800/40 border border-slate-700 rounded-2xl transition-all duration-500 hover:-translate-y-2 hover:border-orange-500/50 hover:shadow-[0_10px_30px_-10px_rgba(249,115,22,0.3)]">
+                <i
+                    class="fab fa-html5 text-5xl text-orange-500 mb-3 group-hover:scale-110 transition-transform duration-500"></i>
+                <span class="text-sm font-bold text-gray-400 group-hover:text-white transition-colors">HTML5</span>
+            </div>
+
+            <div
+                class="group relative flex flex-col items-center p-6 bg-slate-800/40 border border-slate-700 rounded-2xl transition-all duration-500 hover:-translate-y-2 hover:border-blue-500/50 hover:shadow-[0_10px_30px_-10px_rgba(59,130,246,0.3)]">
+                <i
+                    class="fab fa-css3-alt text-5xl text-blue-500 mb-3 group-hover:scale-110 transition-transform duration-500"></i>
+                <span class="text-sm font-bold text-gray-400 group-hover:text-white transition-colors">CSS3</span>
+            </div>
+
+            <div
+                class="group relative flex flex-col items-center p-6 bg-slate-800/40 border border-slate-700 rounded-2xl transition-all duration-500 hover:-translate-y-2 hover:border-yellow-400/50 hover:shadow-[0_10px_30px_-10px_rgba(250,204,21,0.3)]">
+                <i
+                    class="fab fa-js text-5xl text-yellow-400 mb-3 group-hover:scale-110 transition-transform duration-500"></i>
+                <span class="text-sm font-bold text-gray-400 group-hover:text-white transition-colors">JavaScript</span>
+            </div>
+
+            <div
+                class="group relative flex flex-col items-center p-6 bg-slate-800/40 border border-slate-700 rounded-2xl transition-all duration-500 hover:-translate-y-2 hover:border-cyan-400/50 hover:shadow-[0_10px_30px_-10px_rgba(34,211,238,0.3)]">
+                <img src="https://cdn.worldvectorlogo.com/logos/react-2.svg"
+                    class="w-12 h-12 mb-3 group-hover:rotate-[360deg] transition-all duration-1000" alt="React">
+                <span class="text-sm font-bold text-gray-400 group-hover:text-white transition-colors">React.js</span>
+            </div>
+
+            <div
+                class="group relative flex flex-col items-center p-6 bg-slate-800/40 border border-slate-700 rounded-2xl transition-all duration-500 hover:-translate-y-2 hover:border-blue-600/50 hover:shadow-[0_10px_30px_-10px_rgba(37,99,235,0.3)]">
+                <img src="https://cdn.worldvectorlogo.com/logos/typescript.svg"
+                    class="w-10 h-10 mb-4 group-hover:scale-110 transition-transform" alt="TS">
+                <span class="text-sm font-bold text-gray-400 group-hover:text-white transition-colors">TypeScript</span>
+            </div>
+            <div
+                class="group relative flex flex-col items-center p-6 bg-slate-800/40 border border-slate-700 rounded-2xl transition-all duration-500 hover:-translate-y-2 hover:border-purple-500/50 hover:shadow-[0_10px_30px_-10px_rgba(168,85,247,0.3)]">
+                <i
+                    class="fab fa-bootstrap text-5xl text-purple-500 mb-3 group-hover:scale-110 transition-transform duration-500"></i>
+                <span class="text-sm font-bold text-gray-400 group-hover:text-white transition-colors">Bootstrap</span>
+            </div>
+
+            <div
+                class="group relative flex flex-col items-center p-6 bg-slate-800/40 border border-slate-700 rounded-2xl transition-all duration-500 hover:-translate-y-2 hover:border-blue-600/50 hover:shadow-[0_10px_30px_-10px_rgba(37,99,235,0.3)]">
+                <img src="https://cdn.worldvectorlogo.com/logos/c.svg"
+                    class="w-12 h-12 mb-3 group-hover:scale-110 transition-transform duration-500" alt="C++">
+                <span class="text-sm font-bold text-gray-400 group-hover:text-white transition-colors">C++</span>
+            </div>
+
+            <div
+                class="group relative flex flex-col items-center p-6 bg-slate-800/40 border border-slate-700 rounded-2xl transition-all duration-500 hover:-translate-y-2 hover:border-red-500/50 hover:shadow-[0_10px_30px_-10px_rgba(239,68,68,0.3)]">
+                <img src="https://cdn.worldvectorlogo.com/logos/java-4.svg"
+                    class="w-12 h-12 mb-3 group-hover:scale-110 transition-transform duration-500" alt="Java">
+                <span class="text-sm font-bold text-gray-400 group-hover:text-white transition-colors">Java</span>
+            </div>
+
+            <div
+                class="group relative flex flex-col items-center p-6 bg-slate-800/40 border border-slate-700 rounded-2xl transition-all duration-500 hover:-translate-y-2 hover:border-purple-600/50 hover:shadow-[0_10px_30px_-10px_rgba(147,51,234,0.3)]">
+                <img src="https://cdn.worldvectorlogo.com/logos/c--4.svg"
+                    class="w-10 h-10 mb-4 group-hover:scale-110 transition-transform" alt="C#">
+                <span class="text-sm font-bold text-gray-400 group-hover:text-white transition-colors">C#</span>
+            </div>
+
+            <div
+                class="group relative flex flex-col items-center p-6 bg-slate-800/40 border border-slate-700 rounded-2xl transition-all duration-500 hover:-translate-y-2 hover:border-blue-400/50 hover:shadow-[0_10px_30px_-10px_rgba(96,165,250,0.3)]">
+                <img src="https://cdn.worldvectorlogo.com/logos/python-5.svg"
+                    class="w-10 h-10 mb-4 group-hover:scale-110 transition-transform" alt="Python">
+                <span class="text-sm font-bold text-gray-400 group-hover:text-white transition-colors">Python</span>
+            </div>
+
+            <div
+                class="group relative flex flex-col items-center p-6 bg-slate-800/40 border border-slate-700 rounded-2xl transition-all duration-500 hover:-translate-y-2 hover:border-blue-500/50 hover:shadow-[0_10px_30px_-10px_rgba(59,130,246,0.3)]">
+                <img src="https://cdn.worldvectorlogo.com/logos/visual-studio-code-1.svg"
+                    class="w-10 h-10 mb-4 group-hover:scale-110 transition-transform" alt="VS Code">
+                <span class="text-sm font-bold text-gray-300 group-hover:text-white transition-colors">VS Code</span>
+            </div>
+
+            <div
+                class="group relative flex flex-col items-center p-6 bg-slate-800/40 border border-slate-700 rounded-2xl transition-all duration-500 hover:-translate-y-2 hover:border-pink-500/50 hover:shadow-[0_10px_30px_-10px_rgba(236,72,153,0.3)]">
+                <i
+                    class="fab fa-figma text-5xl text-pink-500 mb-3 group-hover:scale-110 transition-transform duration-500"></i>
+                <span class="text-sm font-bold text-gray-400 group-hover:text-white transition-colors">Figma</span>
+            </div>
+
+            <div
+                class="group relative flex flex-col items-center p-6 bg-slate-800/40 border border-slate-700 rounded-2xl transition-all duration-500 hover:-translate-y-2 hover:border-orange-600/50 hover:shadow-[0_10px_30px_-10px_rgba(234,88,12,0.3)]">
+                <i
+                    class="fab fa-git-alt text-5xl text-orange-600 mb-3 group-hover:scale-110 transition-transform duration-500"></i>
+                <span class="text-sm font-bold text-gray-400 group-hover:text-white transition-colors">Git</span>
+            </div>
+
+        </div>
+    </div>
+    <section id="projects" class="py-24 bg-[#0a0f1a] relative overflow-hidden">
+        <div
+            class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(244,63,94,0.05),transparent)] pointer-events-none">
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col items-center justify-center mb-20 group cursor-default">
+                <div class="flex items-center gap-4">
+                    <div class="relative flex items-center justify-center">
+                        <div
+                            class="absolute inset-0 bg-rose-500/20 blur-xl rounded-full group-hover:bg-rose-500/40 transition-all duration-500">
+                        </div>
+                        <div
+                            class="relative z-10 p-3 rounded-2xl bg-slate-800 border border-slate-700 group-hover:border-rose-500/50 transition-all duration-300">
+                            <i
+                                class="fas fa-rocket text-3xl text-rose-400 group-hover:scale-125 group-hover:-translate-y-1 group-hover:translate-x-1 transition-all duration-500"></i>
+                        </div>
+                    </div>
+
+                    <h2 class="text-4xl md:text-6xl font-black tracking-tighter">
+                        <span class="text-white group-hover:text-gray-300 transition-colors duration-300">My</span>
+                        <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-fuchsia-500 to-rose-400 bg-[length:200%_auto] animate-[gradient_3s_linear_infinite] group-hover:from-fuchsia-500 group-hover:to-rose-400 transition-all duration-500">
+                            Projects
+                        </span>
+                    </h2>
+                </div>
+                <div
+                    class="relative w-40 h-1.5 mt-6 bg-slate-800 rounded-full overflow-hidden border border-slate-700 shadow-inner">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-r from-rose-500 to-fuchsia-600 w-1/2 rounded-full animate-[pan_2s_ease-in-out_infinite]">
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-7xl mx-auto">
+
+                <div
+                    class="group relative bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-3xl overflow-hidden transition-all duration-500 hover:-translate-y-4 hover:border-rose-500/50 hover:shadow-[0_30px_60px_-15px_rgba(244,63,94,0.3)]">
+                    <div class="relative h-72 overflow-hidden">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-[#0a0f1a] via-transparent to-transparent opacity-80 z-10">
+                        </div>
+                        <img src="./image/photo.png" alt="Portfolio"
+                            class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000">
+                        <div class="absolute top-5 right-5 z-20 flex gap-2">
+                            <span
+                                class="bg-rose-500 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-xl">Featured</span>
+                            <span
+                                class="bg-slate-900/80 backdrop-blur-md text-gray-300 text-xs px-3 py-1.5 rounded-full border border-slate-700">2026</span>
+                        </div>
+                    </div>
+
+                    <div class="p-8 relative">
+                        <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-rose-400 transition-colors">
+                            Portfolio Website</h3>
+                        <p class="text-slate-400 mb-6 leading-relaxed line-clamp-3 group-hover:text-slate-300">
+                            Developed a personal Portfolio Website to showcase skills, projects, and professional
+                            experience.
+
+                            The website is fully responsive, interactive, and visually appealing, featuring smooth
+                            scrolling, animations,
+
+                            gradient effects, and modern UI components. It includes sections for About, Skills,
+                            Projects, Contact,
+
+                            and Education & Experience Timeline. Downloadable CV functionality and social links are
+                            integrated.
+                        </p>
+
+                        <div class="flex flex-wrap gap-2 mb-8">
+                            <span
+                                class="px-3 py-1.5 bg-rose-500/10 border border-rose-500/20 rounded-xl text-xs font-semibold text-rose-300">HTML5</span>
+
+                            <span
+                                class="px-3 py-1.5 bg-rose-500/10 border border-rose-500/20 rounded-xl text-xs font-semibold text-rose-300">CSS3</span>
+
+                            <span
+                                class="px-3 py-1.5 bg-rose-500/10 border border-rose-500/20 rounded-xl text-xs font-semibold text-rose-300">Tailwind
+                                CSS</span>
+
+                            <span
+                                class="px-3 py-1.5 bg-rose-500/10 border border-rose-500/20 rounded-xl text-xs font-semibold text-rose-300">JavaScript</span>
+
+                            <span
+                                class="px-3 py-1.5 bg-rose-500/10 border border-rose-500/20 rounded-xl text-xs font-semibold text-rose-300">Responsive
+                                Design</span>
+
+                            <span
+                                class="px-3 py-1.5 bg-rose-500/10 border border-rose-500/20 rounded-xl text-xs font-semibold text-rose-300">Animations</span>
+
+                            <span
+                                class="px-3 py-1.5 bg-rose-500/10 border border-rose-500/20 rounded-xl text-xs font-semibold text-rose-300">React.js</span>
+
+                            <span
+                                class="px-3 py-1.5 bg-rose-500/10 border border-rose-500/20 rounded-xl text-xs font-semibold text-rose-300">Bootstrap</span>
+
+                            <span
+                                class="px-3 py-1.5 bg-rose-500/10 border border-rose-500/20 rounded-xl text-xs font-semibold text-rose-300">SASS</span>
+
+                            <span
+                                class="px-3 py-1.5 bg-rose-500/10 border border-rose-500/20 rounded-xl text-xs font-semibold text-rose-300">TypeScript</span>
+                        </div>
+
+                        <div class="flex items-center justify-between border-t border-slate-700/50 pt-6">
+                            <a href="https://github.com/kerollousmamdouh/Keromamdouh.github.io"
+                                class="flex items-center gap-2 text-rose-400 font-bold hover:text-rose-300 transition-all group/link">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-rose-500/10 flex items-center justify-center group-hover/link:bg-rose-500 group-hover/link:text-white transition-all duration-300">
+                                    <i class="fab fa-github text-xl"></i>
+                                </div>
+                                <span class="text-sm">Source Code</span>
+                            </a>
+                            <a href="https://github.com/kerollousmamdouh/Keromamdouh.github.io"
+                                class="w-10 h-10 rounded-full bg-slate-700/50 flex items-center justify-center text-slate-300 hover:bg-white hover:text-black transition-all duration-300">
+                                <i class="fas fa-external-link-alt text-sm"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="group relative bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-3xl overflow-hidden transition-all duration-500 hover:-translate-y-4 hover:border-rose-500/50 hover:shadow-[0_30px_60px_-15px_rgba(244,63,94,0.3)]">
+                    <div class="relative h-72 overflow-hidden">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-[#0a0f1a] via-transparent to-transparent opacity-80 z-10">
+                        </div>
+                        <img src="./image/todo.png" alt="Todo App"
+                            class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000">
+                        <div class="absolute top-5 right-5 z-20">
+                            <span
+                                class="bg-emerald-500 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-xl animate-pulse">Live</span>
+                        </div>
+                    </div>
+
+                    <div class="p-8 relative">
+                        <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-rose-400 transition-colors">
+                            Modern Todo Application</h3>
+                        <p class="text-slate-400 mb-6 leading-relaxed line-clamp-3 group-hover:text-slate-300">
+                            Developed a feature-rich and visually appealing Todo web application using HTML5, CSS3,
+                            JavaScript, and localStorage for data persistence.
+
+                            Designed an interactive and responsive user interface with animations, gradient effects, and
+                            modern UI components.
+
+                            Implemented core functionalities including adding, editing, deleting, completing tasks, and
+                            task filtering (All, Pending, Completed).
+
+                            Integrated search functionality to efficiently find tasks in real-time.
+
+                            Built a dynamic progress bar to visualize task completion and provide instant feedback to
+                            users.
+
+                            Ensured maintainable and scalable code structure, allowing easy future enhancements.
+
+                            Focused on usability, accessibility, and performance to deliver a seamless user experience
+                            across devices.
+                        </p>
+
+                        <div class="flex flex-wrap gap-2 mb-8">
+                            <span
+                                class="px-3 py-1.5 bg-rose-500/10 border border-rose-500/20 rounded-xl text-xs font-semibold text-rose-300">HTML5</span>
+                            <span
+                                class="px-3 py-1.5 bg-rose-500/10 border border-rose-500/20 rounded-xl text-xs font-semibold text-rose-300">CSS3</span>
+                            <span
+                                class="px-3 py-1.5 bg-rose-500/10 border border-rose-500/20 rounded-xl text-xs font-semibold text-rose-300">JavaScript</span>
+                            <span
+                                class="px-3 py-1.5 bg-rose-500/10 border border-rose-500/20 rounded-xl text-xs font-semibold text-rose-300">LocalStorage</span>
+                        </div>
+
+                        <div class="flex items-center justify-between border-t border-slate-700/50 pt-6">
+                            <a href="https://github.com/kerollousmamdouh/TODO_APP"
+                                class="flex items-center gap-2 text-rose-400 font-bold hover:text-rose-300 transition-all group/link">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-rose-500/10 flex items-center justify-center group-hover/link:bg-rose-500 group-hover/link:text-white transition-all duration-300">
+                                    <i class="fab fa-github text-xl"></i>
+                                </div>
+                                <span class="text-sm">Source Code</span>
+                            </a>
+                            <a href="https://github.com/kerollousmamdouh/TODO_APP"
+                                class="w-10 h-10 rounded-full bg-slate-700/50 flex items-center justify-center text-slate-300 hover:bg-white hover:text-black transition-all duration-300">
+                                <i class="fas fa-external-link-alt text-sm"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section id="Services" class="py-24 bg-[#0a0f1a] relative overflow-hidden">
+        <div
+            class="absolute top-0 right-0 w-[500px] h-[500px] bg-teal-500/5 rounded-full blur-[120px] pointer-events-none">
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10">
+
+            <div class="relative mb-20 text-center group">
+                <span
+                    class="absolute -top-12 left-1/2 -translate-x-1/2 text-7xl md:text-9xl font-black text-white/[0.03] uppercase tracking-widest select-none">
+                    Capabilities
+                </span>
+
+                <div class="relative z-10 flex flex-col items-center">
+                    <div class="flex flex-col items-center justify-center mb-16 group">
+                        <div class="flex items-center gap-4 md:gap-6 mb-4">
+                            <div class="relative flex items-center justify-center">
+                                <div
+                                    class="absolute inset-0 w-12 h-12 bg-amber-500/20 blur-xl rounded-full group-hover:bg-amber-500/40 transition-all duration-500">
+                                </div>
+                                <div
+                                    class="relative z-10 p-2 rounded-lg bg-slate-800 border border-slate-700 group-hover:border-amber-500/50 transition-all duration-300">
+                                    <i
+                                        class="fas fa-layer-group text-2xl text-amber-400 group-hover:scale-110 transition-transform duration-300"></i>
+                                </div>
+                            </div>
+
+                            <h2 class="text-4xl md:text-7xl font-black tracking-tighter flex items-center gap-3">
+                                <span
+                                    class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-500 to-amber-400 bg-[length:200%_auto] animate-[gradient_3s_linear_infinite] group-hover:from-orange-500 group-hover:to-amber-400 transition-all duration-500">
+                                    Services
+                                </span>
+                            </h2>
+                        </div>
+
+                        <div
+                            class="relative w-32 h-1.5 mt-4 bg-slate-800 rounded-full overflow-hidden border border-slate-700 shadow-inner">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-r from-amber-500 to-orange-600 w-1/2 rounded-full animate-[pan_2s_ease-in-out_infinite]">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <p class="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">
+                        I transform ideas into <span class="text-white font-medium">high-performance digital
+                            reality</span>, focusing on precision, speed, and exceptional user interfaces.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <div
+                    class="group p-8 rounded-3xl bg-slate-800/40 border border-slate-700 hover:border-teal-500/50 transition-all duration-500 hover:-translate-y-2">
+                    <div
+                        class="w-16 h-16 mb-6 rounded-2xl bg-teal-500/10 flex items-center justify-center text-teal-400 group-hover:bg-teal-500 group-hover:text-white transition-all duration-500 shadow-xl shadow-teal-500/10">
+                        <i class="fas fa-code text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Frontend Development</h3>
+                    <p class="text-slate-400 leading-relaxed mb-6">Building responsive apps using <span
+                            class="text-white font-semibold">React.js</span>.</p>
+                    <ul class="space-y-2 text-sm text-slate-500">
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-teal-500"></i> Single Page
+                            Applications</li>
+                    </ul>
+                </div>
+
+                <div
+                    class="group p-8 rounded-3xl bg-slate-800/40 border border-slate-700 hover:border-fuchsia-500/50 transition-all duration-500 hover:-translate-y-2">
+                    <div
+                        class="w-16 h-16 mb-6 rounded-2xl bg-fuchsia-500/10 flex items-center justify-center text-fuchsia-400 group-hover:bg-fuchsia-500 group-hover:text-white transition-all duration-500 shadow-xl shadow-fuchsia-500/10">
+                        <i class="fas fa-bezier-curve text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">UI/UX Implementation</h3>
+                    <p class="text-slate-400 leading-relaxed mb-6">Converting Figma designs into <span
+                            class="text-white font-semibold">Pixel Perfect</span> code.</p>
+                    <ul class="space-y-2 text-sm text-slate-500">
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-fuchsia-500"></i> Framer Motion
+                            Animations</li>
+                    </ul>
+                </div>
+
+                <div
+                    class="group p-8 rounded-3xl bg-slate-800/40 border border-slate-700 hover:border-emerald-500/50 transition-all duration-500 hover:-translate-y-2">
+                    <div
+                        class="w-16 h-16 mb-6 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-500 shadow-xl shadow-emerald-500/10">
+                        <i class="fas fa-mobile-alt text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Responsive Design</h3>
+                    <p class="text-slate-400 leading-relaxed mb-6">Ensuring your website looks perfect on <span
+                            class="text-white font-semibold">all screens</span>.</p>
+                    <ul class="space-y-2 text-sm text-slate-500">
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-emerald-500"></i> Mobile-first
+                            Philosophy</li>
+                    </ul>
+                </div>
+
+                <div
+                    class="group p-8 rounded-3xl bg-slate-800/40 border border-slate-700 hover:border-amber-500/50 transition-all duration-500 hover:-translate-y-2">
+                    <div
+                        class="w-16 h-16 mb-6 rounded-2xl bg-amber-500/10 flex items-center justify-center text-amber-400 group-hover:bg-amber-500 group-hover:text-white transition-all duration-500 shadow-xl shadow-amber-500/10">
+                        <i class="fas fa-sync-alt text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">API Integration</h3>
+                    <p class="text-slate-400 leading-relaxed mb-6">Connecting frontend with <span
+                            class="text-white font-semibold">RESTful APIs</span> seamlessly.</p>
+                    <ul class="space-y-2 text-sm text-slate-500">
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-amber-500"></i> Real-time Data
+                            Handling</li>
+                    </ul>
+                </div>
+
+                <div
+                    class="group p-8 rounded-3xl bg-slate-800/40 border border-slate-700 hover:border-indigo-500/50 transition-all duration-500 hover:-translate-y-2">
+                    <div
+                        class="w-16 h-16 mb-6 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white transition-all duration-500 shadow-xl shadow-indigo-500/10">
+                        <i class="fas fa-rocket text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Landing Pages</h3>
+                    <p class="text-slate-400 leading-relaxed mb-6">Designing <span
+                            class="text-white font-semibold">attractive</span> and fast performance pages.</p>
+                    <ul class="space-y-2 text-sm text-slate-500">
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-indigo-500"></i> Conversion
+                            Optimized</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section id="contact" class="py-24 bg-[#0f172a] text-white overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col items-center justify-center mb-16 group cursor-default">
+                <div class="flex items-center gap-3">
+                    <div class="relative flex items-center justify-center">
+                        <div
+                            class="absolute inset-0 bg-teal-500/20 blur-xl rounded-full group-hover:bg-teal-500/40 transition-all duration-500">
+                        </div>
+                        <div
+                            class="relative z-10 p-2 rounded-lg bg-slate-800 border border-slate-700 group-hover:border-teal-500/50 transition-all duration-300">
+                            <i
+                                class="fas fa-paper-plane text-3xl text-teal-400 group-hover:scale-110 group-hover:-translate-y-1 group-hover:translate-x-1 transition-all duration-500"></i>
+                        </div>
+                    </div>
+
+                    <h2 class="text-3xl md:text-5xl font-black tracking-tighter">
+                        <span class="text-white group-hover:text-gray-300 transition-colors duration-300">Get In</span>
+                        <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 via-emerald-500 to-teal-400 bg-[length:200%_auto] animate-[gradient_3s_linear_infinite] group-hover:from-emerald-500 group-hover:to-teal-400 transition-all duration-500">
+                            Touch
+                        </span>
+                    </h2>
+                </div>
+                <div
+                    class="relative w-32 h-1.5 mt-4 bg-slate-800 rounded-full overflow-hidden border border-slate-700 shadow-inner mx-auto">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-r from-teal-400 to-emerald-600 w-1/2 rounded-full animate-[pan_2s_ease-in-out_infinite]">
+                    </div>
+                </div>
+
+
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 mt-12">
+                    <div class="space-y-8">
+                        <div>
+                            <h3 class="text-3xl font-bold mb-6 text-teal-400">Contact Information</h3>
+                            <p class="text-slate-400 text-lg leading-relaxed">
+                                Feel free to reach out to me for any questions or opportunities.
+                                I'm always open to discussing new projects or creative ideas.
+                            </p>
+                        </div>
+                        <div class="space-y-6">
+                            <div
+                                class="group flex items-center p-4 rounded-2xl bg-slate-800/40 backdrop-blur-sm border border-slate-700 hover:border-teal-500/50 transition-all duration-500 hover:shadow-[0_0_20px_rgba(20,184,166,0.1)]">
+                                <div
+                                    class="bg-teal-500/10 p-4 rounded-xl mr-5 group-hover:bg-teal-500 group-hover:text-white transition-all duration-500 shadow-lg shadow-teal-500/20">
+                                    <i
+                                        class="fas fa-map-marker-alt text-xl text-teal-500 group-hover:text-white transition-colors"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-200">Location</h4>
+                                    <p class="text-slate-400 group-hover:text-slate-200 transition-colors">Assiut, Egypt
+                                    </p>
+                                </div>
+                            </div>
+
+                            <a href="mailto:Keromamdou131@gmail.com"
+                                class="group flex items-center p-4 rounded-2xl bg-slate-800/40 backdrop-blur-sm border border-slate-700 hover:border-teal-500/50 transition-all duration-500 hover:shadow-[0_0_20px_rgba(20,184,166,0.1)]">
+                                <div
+                                    class="bg-teal-500/10 p-4 rounded-xl mr-5 group-hover:bg-teal-500 group-hover:text-white transition-all duration-500 shadow-lg shadow-teal-500/20">
+                                    <i
+                                        class="fas fa-envelope text-xl text-teal-500 group-hover:text-white transition-colors"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-200">Email</h4>
+                                    <p class="text-slate-400 group-hover:text-slate-200 transition-colors">
+                                        Keromamdou131@gmail.com</p>
+                                </div>
+                            </a>
+
+                            <a href="tel:+201278765856"
+                                class="group flex items-center p-4 rounded-2xl bg-slate-800/40 backdrop-blur-sm border border-slate-700 hover:border-teal-500/50 transition-all duration-500 hover:shadow-[0_0_20px_rgba(20,184,166,0.1)]">
+                                <div
+                                    class="bg-teal-500/10 p-4 rounded-xl mr-5 group-hover:bg-teal-500 group-hover:text-white transition-all duration-500 shadow-lg shadow-teal-500/20">
+                                    <i
+                                        class="fas fa-phone-alt text-xl text-teal-500 group-hover:text-white transition-colors"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-200">Phone</h4>
+                                    <p class="text-slate-400 group-hover:text-slate-200 transition-colors">+20 127 876
+                                        5856</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="mt-10">
+                            <h4 class="font-bold mb-6 text-gray-300">Follow Me</h4>
+
+                            <div class="flex gap-4">
+
+                                <!-- LinkedIn -->
+                                <a href="https://www.linkedin.com/in/kerollous-mamdouh-4b5381335" target="_blank"
+                                    class="w-12 h-12 flex items-center justify-center rounded-full bg-slate-800/50 border border-slate-700 text-slate-400 hover:text-white hover:bg-[#0077b5] hover:border-[#0077b5] transition-all duration-300">
+                                    <i class="fab fa-linkedin-in text-xl"></i>
+                                </a>
+
+                                <!-- Email -->
+                                <a href="mailto:keromamdouh131@gmail.com" target="_blank"
+                                    class="w-12 h-12 flex items-center justify-center rounded-full bg-slate-800/50 border border-slate-700 text-slate-400 hover:text-white hover:bg-rose-500 hover:border-rose-500 transition-all duration-300">
+                                    <i class="fas fa-envelope text-xl"></i>
+                                </a>
+
+                                <!-- Facebook -->
+                                <a href="https://www.facebook.com/share/1BMGjZqAas/" target="_blank"
+                                    class="w-12 h-12 flex items-center justify-center rounded-full bg-slate-800/50 border border-slate-700 text-slate-400 hover:text-white hover:bg-[#1877f2] hover:border-[#1877f2] transition-all duration-300">
+                                    <i class="fab fa-facebook-f text-xl"></i>
+                                </a>
+                                <!-- WhatsApp -->
+                                <a href="https://wa.me/201278765856" target="_blank"
+                                    class="w-12 h-12 flex items-center justify-center rounded-full bg-slate-800/50 border border-slate-700 text-slate-400 hover:text-white hover:bg-emerald-500 hover:border-emerald-500 transition-all duration-300">
+                                    <i class="fab fa-whatsapp text-2xl"></i>
+                                </a>
+
+                                <!-- GitHub -->
+                                <a href="https://github.com/kerollousmamdouh" target="_blank"
+                                    class="w-12 h-12 flex items-center justify-center rounded-full bg-slate-800/50 border border-slate-700 text-slate-400 hover:text-white hover:bg-black hover:border-black transition-all duration-300">
+                                    <i class="fab fa-github text-xl"></i>
+                                </a>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="bg-slate-800/40 p-8 md:p-10 rounded-3xl shadow-2xl border border-slate-700 relative overflow-hidden group">
+                        <div
+                            class="absolute -top-24 -right-24 w-48 h-48 bg-teal-500/10 rounded-full blur-3xl group-hover:bg-teal-500/20 transition-all duration-500">
+                        </div>
+
+                        <h3 class="text-2xl font-bold mb-8 text-white">Send Me a Message</h3>
+
+                        <form action="https://formspree.io/f/YOUR_ID" method="POST" class="space-y-5 relative z-10">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                <div class="space-y-2">
+                                    <label for="name" class="text-sm font-medium text-slate-400 ml-1">Your Name</label>
+                                    <input type="text" name="name" id="name"
+                                        class="w-full px-4 py-4 rounded-xl bg-slate-900/50 border border-slate-700 focus:border-teal-500 focus:ring-1 focus:ring-teal-500 outline-none transition-all duration-300 placeholder:text-slate-600"
+                                        placeholder="John Doe" required>
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="email" class="text-sm font-medium text-slate-400 ml-1">Your
+                                        Email</label>
+                                    <input type="email" name="email" id="email"
+                                        class="w-full px-4 py-4 rounded-xl bg-slate-900/50 border border-slate-700 focus:border-teal-500 focus:ring-1 focus:ring-teal-500 outline-none transition-all duration-300 placeholder:text-slate-600"
+                                        placeholder="example@mail.com" required>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label for="subject" class="text-sm font-medium text-slate-400 ml-1">Subject</label>
+                                <input type="text" name="subject" id="subject"
+                                    class="w-full px-4 py-4 rounded-xl bg-slate-900/50 border border-slate-700 focus:border-teal-500 focus:ring-1 focus:ring-teal-500 outline-none transition-all duration-300 placeholder:text-slate-600"
+                                    placeholder="Project Inquiry" required>
+                            </div>
+                            <div class="space-y-2">
+                                <label for="message" class="text-sm font-medium text-slate-400 ml-1">Message</label>
+                                <textarea name="message" id="message" rows="4"
+                                    class="w-full px-4 py-4 rounded-xl bg-slate-900/50 border border-slate-700 focus:border-teal-500 focus:ring-1 focus:ring-teal-500 outline-none transition-all duration-300 resize-none placeholder:text-slate-600"
+                                    placeholder="Write your message here..." required></textarea>
+                            </div>
+
+                            <button type="submit"
+                                class="w-full py-4 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-600 font-bold text-lg text-white hover:shadow-lg hover:shadow-teal-500/30 transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 group/btn">
+                                Send Message
+                                <i
+                                    class="fas fa-paper-plane text-sm group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </section>
+    <!-- Back to Top Button -->
+    <button id="back-to-top"
+        class="fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-rose-500 to-fuchsia-600 rounded-full flex items-center justify-center text-white shadow-2xl z-[1000] opacity-0 invisible transition-all duration-500 hover:-translate-y-2 group">
+        <i class="fas fa-arrow-up transition-transform group-hover:scale-125"></i>
+    </button>
+
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+
+                    // Close mobile menu if open
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+
+                    // Update active link
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Update active link on scroll
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${sectionId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+
+            // Show/hide back to top button
+            const backToTopButton = document.getElementById('back-to-top');
+            if (scrollPosition > 300) {
+                backToTopButton.classList.remove('hidden');
+            } else {
+                backToTopButton.classList.add('hidden');
+            }
+        });
+
+        const backToTop = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) { // يظهر بعد ما تنزل 300 بكسل
+                backToTop.classList.add('opacity-100', 'visible');
+                backToTop.classList.remove('opacity-0', 'invisible');
+            } else {
+                backToTop.classList.add('opacity-0', 'invisible');
+                backToTop.classList.remove('opacity-100', 'visible');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth' // الحركة تكون ناعمة
+            });
+        });
+
+        // Animate skill bars on scroll
+        const animateSkillBars = () => {
+            const skillBars = document.querySelectorAll('.skill-progress');
+            const skillsSection = document.getElementById('skills');
+            const skillsSectionTop = skillsSection.offsetTop;
+            const windowHeight = window.innerHeight;
+
+            if (window.scrollY > skillsSectionTop - windowHeight + 200) {
+                skillBars.forEach(bar => {
+                    const width = bar.style.width;
+                    bar.style.width = '0';
+                    setTimeout(() => {
+                        bar.style.width = width;
+                    }, 100);
+                });
+
+                // Remove event listener after animation
+                window.removeEventListener('scroll', animateSkillBars);
+            }
+        };
+
+        window.addEventListener('scroll', animateSkillBars);
+    </script>
+</body>
+
+</html>
